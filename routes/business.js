@@ -11,7 +11,7 @@ router.get('/', function(req, res, next) {
 router.get('/add', (req, res, next) => {
 	res.render('addBusiness', {
 		title: 'Add a business'
-	})
+	});
 });
 
 module.exports = router;
