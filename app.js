@@ -3,7 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-const sessions = require('express-session');
+const session = require('express-session');
 const flash = require('connect-flash');
 const mongoose = require('mongoose');
 const passport = require('passport');
@@ -15,18 +15,53 @@ var businessRouter = require('./routes/business');
 
 var app = express();
 
+app.use(flash());
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-app.use(flash());
-
-// Express Session
+// Express Sessions
 app.use(session({
 	secret: 'secret',
-	resave: false,
+	resave: true,
 	saveUnitialized: true
 }));
+
+// Passport Middleware
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Express Messages
+app.use(require('connect-flash')());
+app.use((req, res, next) => {
+	res.locals.messages = require('express-messages')(req, res);
+	res.locals.user = req.user || null;
+	next();
+});
+
+
+app.use(expressValidator({
+	errorFormatter: function(param, msg, value){
+		const namespace = param.split('.')
+		, root  = namespace.shift()
+		, formParam = root;
+
+		while(namespace.length){
+			formParam += '[' + namespace.shift() + ']';
+		}
+
+		return {
+			param: formParam,
+			msg: msg,
+			value: value
+		};
+	}
+}));
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(logger('dev'));
 app.use(express.json());
