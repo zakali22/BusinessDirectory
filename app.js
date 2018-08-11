@@ -15,6 +15,14 @@ var businessRouter = require('./routes/business');
 
 var app = express();
 
+//Connect to Mongoose
+mongoose.connect('mongodb://localhost:27017/businessApp', {useNewUrlParser: true});
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  // we're connected!
+  console.log("Database connected");
+});
 
 
 app.use(flash());
