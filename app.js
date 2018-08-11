@@ -15,6 +15,8 @@ var businessRouter = require('./routes/business');
 
 var app = express();
 
+
+
 app.use(flash());
 
 // view engine setup

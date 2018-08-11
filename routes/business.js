@@ -3,7 +3,15 @@ var router = express.Router();
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+  res.render('business', {
+  	title: 'Business Listing'
+  });
+});
+
+router.get('/add', (req, res, next) => {
+	res.render('addBusiness', {
+		title: 'Add a business'
+	})
 });
 
 module.exports = router;
