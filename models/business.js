@@ -28,3 +28,13 @@ const businessSchema = mongoose.Schema({
 });
 
 const Business = module.exports = mongoose.model('Business', businessSchema);
+
+// Add a business
+module.exports.addBusiness = (business, callback) => {
+	Business.create(business, callback);
+}
+
+// Show all businesses
+module.exports.findAllBusinesses = (callback) => {
+	Business.find(callback).sort({"businessName": -1});
+}

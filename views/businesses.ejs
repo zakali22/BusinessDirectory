@@ -1,0 +1,37 @@
+<% include partials/head %>
+	<div class="container">
+		<h1 class="display-3 text-center mb-5">Business Listings</h1>
+		<% businesses.forEach((business) => { %>
+			<div class="row">
+					<div class="col-md-10 businessCard">
+						<div class="col-md-8">
+							<a href="#"><h2><%= business.businessName %></h2></a>
+							<a href="#"><p class="slogan" ><%= business.category %></p></a>
+							<p class="slogan">We love to help small businesses</p>
+							<div class="buttonGroup mt-3">
+								<a href="#" class="btn btn-warning mb-3"><i class="fas fa-globe"></i> Website</a>
+								<a href="#" class="btn btn-warning mb-3"><i class="fas fa-envelope"></i> Email</a>
+								<a href="#" class="btn btn-warning mb-3"><i class="fas fa-phone"></i> Phone</a>
+							</div>
+							<a href="#"><p><%= business.address.street %> | <%= business.address.city %> | <%= business.address.postcode %></p></a>
+							<p class="lead">We are a world class financial service brokerage that has a large portfolio of international clients</p>
+						</div>
+						<div class="col-md-4">
+							<div class="reviews">
+								<div class="ratings mb-2">
+									<i class="fas fa-star checked"></i>
+									<i class="fas fa-star checked"></i>
+									<i class="fas fa-star"></i>
+									<i class="fas fa-star"></i>
+									<i class="fas fa-star"></i>
+								</div>
+								<a href="#"><h5>2.0 rating (30 reviews)</h5></a>
+								<a href="#">Write a review</a>								
+							</div>
+							<button class="btn btn-warning">More info</button>
+						</div>
+					</div>
+			</div>
+		<% }) %> 
+	</div>
+<% include partials/footer %>
