@@ -5,16 +5,16 @@
 			<div class="row">
 					<div class="col-md-10 businessCard">
 						<div class="col-md-8">
-							<a href="#"><h2><%= business.businessName %></h2></a>
+							<a href="#"><h2  style="font-family: 'Josefin Sans', sans serif; "><%= business.businessName %></h2></a>
 							<a href="#"><p class="slogan" ><%= business.category %></p></a>
-							<p class="slogan">We love to help small businesses</p>
+							<p class="slogan"><%= business.slogan %></p>
 							<div class="buttonGroup mt-3">
 								<a href="#" class="btn btn-warning mb-3"><i class="fas fa-globe"></i> Website</a>
 								<a href="#" class="btn btn-warning mb-3"><i class="fas fa-envelope"></i> Email</a>
 								<a href="#" class="btn btn-warning mb-3"><i class="fas fa-phone"></i> Phone</a>
 							</div>
 							<a href="#"><p><%= business.address.street %> | <%= business.address.city %> | <%= business.address.postcode %></p></a>
-							<p class="lead">We are a world class financial service brokerage that has a large portfolio of international clients</p>
+							<p class="lead"><%= business.description %></p>
 						</div>
 						<div class="col-md-4">
 							<div class="reviews">
