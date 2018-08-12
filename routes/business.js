@@ -16,6 +16,20 @@ router.get('/', function(req, res, next) {
 	});
 });
 
+router.get('/show/:id', (req, res, next) => {
+	const queryId = {_id: req.params.id};
+	Business.findBusiness(queryId, (err, business) => {
+		if(err){
+			console.log(err);
+		}
+		console.log(business);
+		res.render('business', {
+			title: business.businessName,
+			business: business
+		})
+	});
+});
+
 router.get('/add', (req, res, next) => {
 	Category.findCategories((err, categories) => {
 		if(err){

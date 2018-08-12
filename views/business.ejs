@@ -1,37 +1,48 @@
 <% include partials/head %>
-	<div class="container">
-		<h1 class="display-3 text-center mb-5">Business Listings</h1>
-		<% businesses.forEach((business) => { %>
-			<div class="row">
-					<div class="col-md-10 businessCard">
-						<div class="col-md-8">
-							<a href="#"><h2  style="font-family: 'Josefin Sans', sans serif; "><%= business.businessName %></h2></a>
-							<a href="#"><p class="slogan" ><%= business.category %></p></a>
-							<p class="slogan"><%= business.slogan %></p>
-							<div class="buttonGroup mt-3">
-								<a href="#" class="btn btn-warning mb-3"><i class="fas fa-globe"></i> Website</a>
-								<a href="#" class="btn btn-warning mb-3"><i class="fas fa-envelope"></i> Email</a>
-								<a href="#" class="btn btn-warning mb-3"><i class="fas fa-phone"></i> Phone</a>
-							</div>
-							<a href="#"><p><%= business.address.street %> | <%= business.address.city %> | <%= business.address.postcode %></p></a>
-							<p class="lead"><%= business.description %></p>
-						</div>
-						<div class="col-md-4">
-							<div class="reviews">
-								<div class="ratings mb-2">
-									<i class="fas fa-star checked"></i>
-									<i class="fas fa-star checked"></i>
-									<i class="fas fa-star"></i>
-									<i class="fas fa-star"></i>
-									<i class="fas fa-star"></i>
+	<div class="container businessHeader">
+		<div class="row">
+			<div class="col-md-7">
+				<div class="business">
+					<h2><%= business.businessName %></h2>
+					<p><%= business.slogan %></p>	
+								<div class="reviews">
+									<div class="ratings mb-2 mr-2">
+										<i class="fas fa-star checked"></i>
+										<i class="fas fa-star checked"></i>
+										<i class="fas fa-star"></i>
+										<i class="fas fa-star"></i>
+										<i class="fas fa-star"></i>
+									</div>
+									<a href="#" class="mr-3 mt-1"><h5>2.0 rating </h5></a>
+									<a href="#" class="mt-1"><h5>Write a review</h5></a>
 								</div>
-								<a href="#"><h5>2.0 rating (30 reviews)</h5></a>
-								<a href="#">Write a review</a>								
-							</div>
-							<button class="btn btn-warning">More info</button>
-						</div>
-					</div>
+					<p class="mt-2"><i class="fas fa-phone"></i> <%= business.phone %></p>
+								<div class="buttonGroup mt-3">
+									<a href="#" class="btn btn-warning mb-3"><i class="fas fa-globe"></i> Website</a>
+									<a href="#" class="btn btn-warning mb-3"><i class="fas fa-envelope"></i> Email</a>
+									<a href="#" class="btn btn-warning mb-3"><i class="fas fa-phone"></i> Phone</a>
+								</div>
+				</div>
+				<div class="quickInfo">
+					<ul>
+						<li><strong>Why us?</strong></li>
+						<li>Afforable prices</li>
+						<li>Special loyalty deals</li>
+						<li>24hr service</li>
+					</ul>
+				</div>
+				<p class="lead"><%= business.description %></p>
 			</div>
-		<% }) %> 
+			<div class="col-md-5" style="background-color: coral">
+				
+			</div>
+		</div>
+		<div class="row mt-5">
+			<div class="col-md-12">
+				<div class="reviewListing">
+					<h2 class="mt-3">Reviews</h2>
+				</div>
+			</div>
+		</div>
 	</div>
 <% include partials/footer %>

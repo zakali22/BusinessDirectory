@@ -63,3 +63,35 @@ i.fa-star {
 .checked {
 	color: orange;
 }
+
+.business {
+	display: flex;
+	flex-direction: column;
+}
+
+.reviews {
+	display: flex;
+	flex-direction: column;
+}
+
+.quickInfo ul {
+	display: flex;
+	justify-content: space-between;
+	border-top: 1px solid lightgrey;
+	border-bottom: 1px solid lightgrey;
+	margin-top: 10px;
+}
+
+.quickInfo ul li {
+	list-style: none;
+	padding: 20px;
+	font-size: 20px;
+}
+
+.businessHeader {
+	width: 90%;
+}
+
+.reviewListing {
+	border-top: 1px solid lightgrey;
+}
