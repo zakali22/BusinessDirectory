@@ -45,7 +45,12 @@ module.exports.findAllBusinesses = (callback) => {
 	Business.find(callback).sort({"businessName": 1});
 }
 
-// Show specific business
+// Show specific business by ID
 module.exports.findBusiness = (id, callback) => {
 	Business.findOne(id, callback);
+}
+
+// Find by Category
+module.exports.findByCategory = (category, callback) => {
+	Business.find(category, callback);
 }

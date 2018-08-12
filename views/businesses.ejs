@@ -1,6 +1,13 @@
 <% include partials/head %>
 	<div class="container">
 		<h1 class="display-3 text-center mb-5">Business Listings</h1>
+		<form class="form-inline my-2 my-lg-0" method="post" action="/business/search">
+	      <input name="search" class="form-control mr-sm-2" type="search" placeholder="Search a business" aria-label="Search">
+	      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+	    </form>
+		<% if(businesses.length === 0) { %>
+			<h3 class="text-center">There are no businesses for this category</h3>
+		<% } %>
 		<% businesses.forEach((business) => { %>
 			<div class="row">
 					<div class="col-md-10 businessCard">

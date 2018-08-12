@@ -3,7 +3,8 @@ var router = express.Router();
 
 Business = require('../models/business.js');
 Category = require('../models/category.js');
-/* GET users listing. */
+
+
 router.get('/', function(req, res, next) {
 	Business.findAllBusinesses((err, businesses) => {
 		if(err){
@@ -22,11 +23,26 @@ router.get('/show/:id', (req, res, next) => {
 		if(err){
 			console.log(err);
 		}
-		console.log(business);
 		res.render('business', {
 			title: business.businessName,
 			business: business
 		})
+	});
+});
+
+router.get('/category/:id', (req, res, next) => {
+	const queryId = {_id: req.params.id};
+	Category.findACategory(queryId, (err, category) => {
+		const query = {category: category.title}
+		Business.findByCategory(query, (err, businesses) => {
+			if(err){
+				console.log(err);
+			}
+			res.render('businesses', {
+				title: category.title + ' Businesses',
+				businesses: businesses
+			});
+		});
 	});
 });
 
@@ -59,11 +75,27 @@ router.post('/add', (req, res, next) => {
 	});
 
 	Business.addBusiness(newBusiness, (err, business) => {
-		console.log(business);
 		if(err){
 			console.log(err);
 		}
 		res.redirect('/business');
+	});
+});
+
+
+router.post('/search', (req, res, next) => {
+	const query = {businessName: req.body.search};
+
+	Business.findBusiness(query, (err, business) => {
+		if(err){
+			console.log(err);
+		}
+		if(business){
+			res.render('business', {
+				title: 'Business Listings',
+				business: business
+			});
+		}
 	});
 });
 module.exports = router;
