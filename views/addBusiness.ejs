@@ -7,14 +7,24 @@
 		    <input type="text" class="form-control" id="business" placeholder="Business name" name="businessName">
 		  </div>
 		  <div class="form-group">
+		    <label for="slogan">Business Slogan</label>
+		    <input type="text" class="form-control" id="slogan" placeholder="Business Slogan (Optional)" name="slogan">
+		  </div>
+		  <div class="form-group">
 		    <label for="owner">Business Owner</label>
 		    <input type="text" class="form-control" id="owner" placeholder="Full name" name="ownerName">
 		  </div>
 		  <div class="form-group">
 		    <label for="type">Business Category</label><br>
 		    <select class="form-control" name="category">
-		    	<option>Types</option>
+		    	<% categories.forEach((category) => { %>
+		    		<option value="<%= category.title %>"><%= category.title %></option>
+		    	<% }) %>
 		    </select>
+		  </div>
+		  <div class="form-group">
+		    <label for="description">Business Description</label>
+		    <textarea class="form-control" id="description" placeholder="Description" name="description"></textarea>
 		  </div>
 		  <div class="form-group">
 		    <label for="number">Phone number</label>

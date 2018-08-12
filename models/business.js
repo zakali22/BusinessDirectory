@@ -14,6 +14,12 @@ const businessSchema = mongoose.Schema({
 	phone: {
 		type: String
 	},
+	slogan: {
+		type: String
+	},
+	description: {
+		type: String
+	},
 	address: {
 		street: {
 			type: String

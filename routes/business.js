@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 Business = require('../models/business.js');
-
+Category = require('../models/category.js');
 /* GET users listing. */
 router.get('/', function(req, res, next) {
 	Business.findAllBusinesses((err, businesses) => {
@@ -17,8 +17,14 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/add', (req, res, next) => {
-	res.render('addBusiness', {
-		title: 'Add a business'
+	Category.findCategories((err, categories) => {
+		if(err){
+			console.log(err);
+		}
+		res.render('addBusiness', {
+			title: 'Add a business',
+			categories: categories
+		});
 	});
 });
 
@@ -29,6 +35,8 @@ router.post('/add', (req, res, next) => {
 		ownerName: req.body.ownerName,
 		category: req.body.category,
 		phone: req.body.phone,
+		description: req.body.description,
+		slogan: req.body.slogan,
 		address: {
 			street: req.body.street,
 			city: req.body.city,
