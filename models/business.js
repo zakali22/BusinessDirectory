@@ -30,7 +30,21 @@ const businessSchema = mongoose.Schema({
 		postcode: {
 			type: String
 		}
-	}
+	},
+	comments: [{
+		comment_title: {
+			type: String
+		},
+		comment_author: {
+			type: String
+		},
+		comment_stars: {
+			type: Number
+		},
+		comment_body: {
+			type: String
+		},
+	}]
 });
 
 const Business = module.exports = mongoose.model('Business', businessSchema);
