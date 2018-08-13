@@ -4,15 +4,16 @@ var router = express.Router();
 Business = require('../models/business.js');
 Category = require('../models/category.js');
 
-
 router.get('/', function(req, res, next) {
 	Business.findAllBusinesses((err, businesses) => {
 		if(err){
 			console.log(err);
 		}
+
 		res.render('businesses', {
 	  		title: 'Business Listings',
-	  		businesses: businesses
+	  		businesses: businesses,
+
 	  	});
 	});
 });
@@ -23,10 +24,18 @@ router.get('/show/:id', (req, res, next) => {
 		if(err){
 			console.log(err);
 		}
-		res.render('business', {
-			title: business.businessName,
-			business: business
-		})
+		let counter = 0;
+		business.comments.forEach((comment) => {
+			counter += comment.comment_stars;
+		});
+		let average = counter / business.comments.length;
+		console.log(average);
+		Business.updateBusiness(queryId, {$set: {average_stars: average}}, (err, average) => {
+			res.render('business', {
+				title: business.businessName,
+				business: business
+			})
+		});
 	});
 });
 
@@ -98,4 +107,36 @@ router.post('/search', (req, res, next) => {
 		}
 	});
 });
+
+router.get('/write_review/:id', (req, res, next) => {
+	const queryId = {_id: req.params.id};
+
+	Business.findBusiness(queryId, (err, business) => {
+		if(err){
+			console.log(err);
+		} 
+		console.log(business);
+		res.render('review', {
+			title: 'Write a review',
+			business: business
+		});	
+	});
+});
+
+router.post('/write_review/submit/:id', (req, res, next) => {
+	const queryId = {_id: req.params.id};
+	const comment = {
+		comment_author: req.body.name, 
+		comment_title: req.body.title,
+		comment_body: req.body.body,
+		comment_stars: req.body.stars
+	};
+
+	Business.updateBusiness(queryId, {$push: {comments: comment}}, (err, comment) => {
+		if(err){
+			console.log(err);
+		}
+		res.redirect('/business');
+	})
+})
 module.exports = router;

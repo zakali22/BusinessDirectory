@@ -95,3 +95,7 @@ i.fa-star {
 .reviewListing {
 	border-top: 1px solid lightgrey;
 }
+
+.reviewListing h2 {
+	font-weight: bold;
+}

@@ -31,6 +31,9 @@ const businessSchema = mongoose.Schema({
 			type: String
 		}
 	},
+	average_stars: {
+		type: Number
+	},
 	comments: [{
 		comment_title: {
 			type: String
@@ -43,7 +46,7 @@ const businessSchema = mongoose.Schema({
 		},
 		comment_body: {
 			type: String
-		},
+		}
 	}]
 });
 
@@ -67,4 +70,9 @@ module.exports.findBusiness = (id, callback) => {
 // Find by Category
 module.exports.findByCategory = (category, callback) => {
 	Business.find(category, callback);
+}
+
+// Update a Business
+module.exports.updateBusiness = (id, update, callback) => {
+	Business.update(id, update, callback);
 }

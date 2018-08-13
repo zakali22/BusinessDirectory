@@ -25,15 +25,24 @@
 						</div>
 						<div class="col-md-4">
 							<div class="reviews">
-								<div class="ratings mb-2">
-									<i class="fas fa-star checked"></i>
-									<i class="fas fa-star checked"></i>
-									<i class="fas fa-star"></i>
-									<i class="fas fa-star"></i>
-									<i class="fas fa-star"></i>
-								</div>
-								<a href="#"><h5>2.0 rating (30 reviews)</h5></a>
-								<a href="/business/write_review">Write a review</a>								
+								<% if(business.average_stars) { %>
+									<div class="ratings mb-2">
+											<% for(let i = 0; i < business.average_stars; i++){ %>
+												<i class="fas fa-star checked mb-3"></i>											
+											<% } %>
+									</div>
+								<h5><%= business.average_stars %> ratings (<%= business.comments.length %> reviews)</h5>
+								<% } else { %>
+									<div class="ratings mb-2">
+										<i class="fas fa-star"></i>
+										<i class="fas fa-star"></i>
+										<i class="fas fa-star"></i>
+										<i class="fas fa-star"></i>
+										<i class="fas fa-star"></i>
+									</div>
+									<h5 class="mr-3 mt-1">No ratings</h5>
+								<% } %>
+								<a href="/business/write_review/<%= business.id %>">Write a review</a>								
 							</div>
 							<button class="btn btn-warning">More info</button>
 						</div>

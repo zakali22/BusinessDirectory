@@ -1,0 +1,30 @@
+<% include partials/head %>
+	<div class="container">
+		<h1 class="display-4 text-center">Write a review for <%= business.businessName %></h1>
+		<form method="post" action="/business/write_review/submit/<%= business.id %>">
+		  <div class="form-group">
+		    <label for="name">Name</label>
+		    <input type="text" class="form-control" id="name" placeholder="Full name" name="name">
+		  </div>
+		  <div class="form-group">
+		    <label for="title">Comment Title</label>
+		    <input type="text" class="form-control" id="title" placeholder="Comment Title" name="title">
+		  </div>
+		  <div class="form-group">
+		    <label for="body">Comment Body</label>
+		    <input type="text" class="form-control" id="body" placeholder="Comment Body" name="body">
+		  </div>
+		  <div class="form-group">
+		    <label for="stars">Rating</label>
+		    <select name="stars" id="stars" class="ml-2">
+		    	<option value="1">1</option>
+		    	<option value="2">2</option>	
+		    	<option value="3">3</option>	
+		    	<option value="4">4</option>	
+		    	<option value="5">5</option>			    	
+		    </select>
+		  </div>
+		  <button type="submit" class="btn btn-outline-primary">Submit</button>
+		</form>
+	</div>
+<% include partials/footer %>
