@@ -8,11 +8,11 @@
 								<div class="reviews">
 									<% if(business.average_stars) { %>
 									<div class="ratings mb-2 mr-2">
-										<% for(let i = 0; i < business.average_stars; i++){ %>
+										<% for(let i = 0; i < Math.round(business.average_stars); i++){ %>
 											<i class="fas fa-star checked mb-3"></i>											
 										<% } %>
 									</div>
-									<h5 class="mr-3 mt-1"><%= business.average_stars %> ratings</h5>
+									<h5 class="mr-3 mt-1"><%= Math.round(business.average_stars) %> ratings</h5>
 									<% } else { %>
 										<h5 class="mr-3 mt-1">No ratings</h5>
 									<% } %>

@@ -1,29 +1,30 @@
 var express = require('express');
 var router = express.Router();
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 
 Business = require('../models/business.js');
 Category = require('../models/category.js');
-
+User = require('../models/user.js');
 // Access control
 const ensureAuthenticated = (req, res, next) => {
 	if(req.isAuthenticated()){
-		console.log(req.isAuthenticated());
+		//console.log(req.isAuthenticated());
 		return next();
 	} else {
 		res.redirect('/user/login');
 	}
 };
 
+
 router.get('/', function(req, res, next) {
 	Business.findAllBusinesses((err, businesses) => {
 		if(err){
 			console.log(err);
 		}
-
 		res.render('businesses', {
 	  		title: 'Business Listings',
-	  		businesses: businesses,
-
+	  		businesses: businesses
 	  	});
 	});
 });
@@ -125,7 +126,6 @@ router.get('/write_review/:id', ensureAuthenticated, (req, res, next) => {
 		if(err){
 			console.log(err);
 		} 
-		console.log(business);
 		res.render('review', {
 			title: 'Write a review',
 			business: business
@@ -136,17 +136,19 @@ router.get('/write_review/:id', ensureAuthenticated, (req, res, next) => {
 router.post('/write_review/submit/:id', ensureAuthenticated, (req, res, next) => {
 	const queryId = {_id: req.params.id};
 	const comment = {
-		comment_author: req.body.name, 
+		comment_author: req.user.username, 
 		comment_title: req.body.title,
 		comment_body: req.body.body,
 		comment_stars: req.body.stars
 	};
-
 	Business.updateBusiness(queryId, {$push: {comments: comment}}, (err, comment) => {
-		if(err){
-			console.log(err);
-		}
-		res.redirect('/business');
+		User.updateUser(req.user.username, {$push: {comments: comment}}, (err, user) => {
+			if(err){
+				console.log(err);
+			}
+			console.log(user);
+			res.redirect('/business');
+		});
 	})
 })
 module.exports = router;

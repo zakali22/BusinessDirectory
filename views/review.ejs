@@ -1,11 +1,8 @@
 <% include partials/head %>
 	<div class="container">
 		<h1 class="display-4 text-center">Write a review for <%= business.businessName %></h1>
+		<h4 class="mb-4">By <%= user.username %></h4>
 		<form method="post" action="/business/write_review/submit/<%= business.id %>">
-		  <div class="form-group">
-		    <label for="name">Name</label>
-		    <input type="text" class="form-control" id="name" placeholder="Full name" name="name">
-		  </div>
 		  <div class="form-group">
 		    <label for="title">Comment Title</label>
 		    <input type="text" class="form-control" id="title" placeholder="Comment Title" name="title">

@@ -16,8 +16,11 @@ const ensureAuthenticated = (req, res, next) => {
 };
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('profile', { title: 'Profile Page' });
+router.get('/', ensureAuthenticated, function(req, res, next) {
+		console.log(req.user.username);
+	  res.render('profile', { 
+	  	title: 'Profile Page' 
+	  });
 });
 
 
@@ -79,10 +82,8 @@ passport.deserializeUser((id, done) => {
 });
 // Create a local strategy
 passport.use(new LocalStrategy((username, password, done) => {
-	console.log(username);
 	User.getUserByUsername(username, (err, user) => {
 		if(err) throw err;
-		console.log(user);
 		if(!user){
 			return done(null, false, {message: 'Username is incorrect'});
 		}
@@ -114,5 +115,6 @@ router.get('/logout', (req, res, next) => {
 	req.flash('success', 'You are logged out');
 	res.redirect('/user/login');
 });
+
 
 module.exports = router;

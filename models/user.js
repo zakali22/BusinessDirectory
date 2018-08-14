@@ -14,7 +14,21 @@ const userSchema = mongoose.Schema({
 	},
 	password: {
 		type: String
-	}	
+	},
+	comments: [{
+		comment_title: {
+			type: String
+		},
+		comment_author: {
+			type: String
+		},
+		comment_stars: {
+			type: Number
+		},
+		comment_body: {
+			type: String
+		}
+	}]	
 });
 
 const User = module.exports = mongoose.model('User', userSchema);
@@ -47,3 +61,8 @@ module.exports.comparePasswords = (userPassword, hash, callback) => {
 		callback(null, isMatch);
 	});
 };
+
+module.exports.updateUser = (user, update, callback) => {
+	const userName = {username: user};
+	User.update(userName, update, callback);
+}
