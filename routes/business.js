@@ -4,6 +4,16 @@ var router = express.Router();
 Business = require('../models/business.js');
 Category = require('../models/category.js');
 
+// Access control
+const ensureAuthenticated = (req, res, next) => {
+	if(req.isAuthenticated()){
+		console.log(req.isAuthenticated());
+		return next();
+	} else {
+		res.redirect('/user/login');
+	}
+};
+
 router.get('/', function(req, res, next) {
 	Business.findAllBusinesses((err, businesses) => {
 		if(err){
@@ -108,7 +118,7 @@ router.post('/search', (req, res, next) => {
 	});
 });
 
-router.get('/write_review/:id', (req, res, next) => {
+router.get('/write_review/:id', ensureAuthenticated, (req, res, next) => {
 	const queryId = {_id: req.params.id};
 
 	Business.findBusiness(queryId, (err, business) => {
@@ -123,7 +133,7 @@ router.get('/write_review/:id', (req, res, next) => {
 	});
 });
 
-router.post('/write_review/submit/:id', (req, res, next) => {
+router.post('/write_review/submit/:id', ensureAuthenticated, (req, res, next) => {
 	const queryId = {_id: req.params.id};
 	const comment = {
 		comment_author: req.body.name, 

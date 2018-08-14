@@ -3,16 +3,16 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const bodyParser = require('body-parser');
+const expressValidator = require('express-validator');
 const session = require('express-session');
-const flash = require('connect-flash');
 const mongoose = require('mongoose');
 const passport = require('passport');
-const expressValidator = require('express-validator');
-const bodyParser = require('body-parser');
 
 var indexRouter = require('./routes/index');
 var businessRouter = require('./routes/business');
 const categoriesRouter = require('./routes/categories');
+const userRouter = require('./routes/user');
 
 var app = express();
 
@@ -26,7 +26,6 @@ db.once('open', function() {
 });
 
 
-app.use(flash());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -83,6 +82,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/business', businessRouter);
 app.use('/categories', categoriesRouter);
+app.use('/user', userRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
