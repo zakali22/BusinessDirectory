@@ -1,5 +1,52 @@
 body {
-  font: 14px "Lato", sans-serif;
+	font-family: 'Montserrat', sans-serif;
+}
+
+.homepageBody {
+	background-color: #fcd833;
+	height: 100vh;
+	position: absolute;
+	top: 0;
+	z-index: 1;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.homepageBody .container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.homepageBody .container h1 {
+	font-size: 45px;
+}
+
+.homepageBody span {
+	padding-bottom: 7px;
+	border-bottom: 4px solid white;
+}
+
+.navbar {
+	z-index: 100;
+	background-color: #fcd833;
+	height: 200px;
+}
+
+.navbar a  {
+	font-size: 13px;
+	font-family: 'Montserrat', sans-serif;
+	text-transform: uppercase;
+	margin: 10px;
+}
+
+.navbar a, .navbar a:hover, .navbar a:link, .navbar a:visited, .navbar button {
+	color: black;
+}
+
+.collapse a:hover {
+	border-bottom: 1px solid black;
 }
 
 a, a:hover, a:link, a:visited {

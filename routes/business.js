@@ -39,7 +39,8 @@ router.get('/', function(req, res, next) {
 		}
 		res.render('businesses', {
 	  		title: 'Business Listings',
-	  		businesses: businesses
+	  		businesses: businesses,
+	  		isAuthenticated: req.isAuthenticated()
 	  	});
 	});
 });
@@ -59,7 +60,8 @@ router.get('/show/:id', (req, res, next) => {
 		Business.updateBusiness(queryId, {$set: {average_stars: average}}, (err, average) => {
 			res.render('business', {
 				title: business.businessName,
-				business: business
+				business: business,
+				isAuthenticated: req.isAuthenticated()
 			})
 		});
 	});
@@ -75,7 +77,8 @@ router.get('/category/:id', (req, res, next) => {
 			}
 			res.render('businesses', {
 				title: category.title + ' Businesses',
-				businesses: businesses
+				businesses: businesses,
+				isAuthenticated: req.isAuthenticated()
 			});
 		});
 	});
@@ -89,7 +92,8 @@ router.get('/add', (req, res, next) => {
 		res.render('addBusiness', {
 			title: 'Add a business',
 			categories: categories,
-			errors: null
+			errors: null,
+			isAuthenticated: req.isAuthenticated()
 		});
 	});
 });
@@ -169,7 +173,8 @@ router.get('/write_review/:id', ensureAuthenticated, (req, res, next) => {
 		} 
 		res.render('review', {
 			title: 'Write a review',
-			business: business
+			business: business,
+			isAuthenticated: req.isAuthenticated()
 		});	
 	});
 });

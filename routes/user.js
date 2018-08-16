@@ -29,7 +29,8 @@ router.get('/profile/:id', (req, res, next) => {
 		if(user){
 			res.render('profile', {
 				title: user.username + "'s Profile",
-				user: user
+				user: user,
+				isAuthenticated: req.isAuthenticated()
 			});
 		}
 	});
@@ -38,7 +39,8 @@ router.get('/profile/:id', (req, res, next) => {
 router.get('/add', (req, res, next) => {
 	res.render('addProfile', {
 		title: 'Register',
-		errors: null
+		errors: null,
+		isAuthenticated: req.isAuthenticated()
 	});
 });
 
@@ -78,7 +80,8 @@ router.post('/add', (req, res, next) => {
 router.get('/login', (req, res, next) => {
 	res.render('login', {
 		title: 'Login',
-		errors: null
+		errors: null,
+		isAuthenticated: req.isAuthenticated()
 	})
 });
 

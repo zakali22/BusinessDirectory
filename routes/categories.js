@@ -4,6 +4,16 @@ var router = express.Router();
 Category = require('../models/category.js');
 Business = require('../models/business.js');
 
+// Access control
+const ensureAuthenticated = (req, res, next) => {
+  if(req.isAuthenticated()){
+    return next();
+  } else {
+    res.redirect('/user/login');
+  }
+};
+
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   Category.findCategories((err, categories) => {
@@ -21,7 +31,8 @@ router.get('/', function(req, res, next) {
   	});
   	res.render('categories', {
   		title: 'Business Categories',
-  		categories: categories
+  		categories: categories,
+      isAuthenticated: req.isAuthenticated()
   	})
   });
 });
