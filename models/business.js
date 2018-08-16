@@ -34,6 +34,14 @@ const businessSchema = mongoose.Schema({
 	average_stars: {
 		type: Number
 	},
+	storeGeocode: {
+		long: {
+			type: Number
+		},
+		lat: {
+			type: Number
+		}
+	},
 	comments: [{
 		comment_title: {
 			type: String

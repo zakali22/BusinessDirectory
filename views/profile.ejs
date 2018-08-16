@@ -1,4 +1,31 @@
 <% include partials/head %>
+<div class="container">
     <h1><%= title %></h1>
-    <h2><%= user.username %></h2>
+    <div class="row mt-5">
+			<div class="col-md-12">
+				<div class="reviewListing">
+					<h2 class="mt-3 mb-4">Profile info</h2>
+					<h5>Username: <%= user.username %></h5>
+					<h5>Email: <%= user.email %></h5>
+				</div>
+			</div>
+		</div>
+
+
+ 		<div class="row mt-5">
+			<div class="col-md-12">
+				<div class="reviewListing">
+					<h2 class="mt-3 mb-4">Reviews submitted</h2>
+					<% user.comments.forEach((comment) => { %>
+						<p class="mt-5" style="font-size: 20px;"><i class="far fa-user"></i> <%= comment.comment_author %></p>
+						<% for(let i = 0; i < comment.comment_stars; i++) { %>
+						<i class="fas fa-star checked mb-3"></i>
+						<% } %>
+						<h3><%= comment.comment_title %></h3>
+						<p style="font-size: 20px;"><%= comment.comment_body %></p>
+					<% }) %>
+				</div>
+			</div>
+		</div>
+</div>
 <% include partials/footer %>

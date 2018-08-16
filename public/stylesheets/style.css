@@ -1,5 +1,4 @@
 body {
-  padding: 50px;
   font: 14px "Lato", sans-serif;
 }
 
@@ -120,4 +119,8 @@ i.fa-star {
 
 .reviewListing h2 {
 	font-weight: bold;
+}
+
+#map {
+  height: 100%;
 }

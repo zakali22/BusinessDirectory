@@ -17,12 +17,23 @@ const ensureAuthenticated = (req, res, next) => {
 
 /* GET home page. */
 router.get('/', ensureAuthenticated, function(req, res, next) {
-		console.log(req.user.username);
-	  res.render('profile', { 
-	  	title: 'Profile Page' 
-	  });
+		res.redirect('/business');
 });
 
+router.get('/profile/:id', (req, res, next) => {
+	User.findOne({username: req.params.id}, (err, user) => {
+		if(err){
+			console.log(err);
+		}
+		console.log(user);
+		if(user){
+			res.render('profile', {
+				title: user.username + "'s Profile",
+				user: user
+			});
+		}
+	});
+});
 
 router.get('/add', (req, res, next) => {
 	res.render('addProfile', {
@@ -102,7 +113,7 @@ passport.use(new LocalStrategy((username, password, done) => {
 
 router.post('/login', (req, res, next) => {
 	passport.authenticate('local', {
-		successRedirect: '/user',
+		successRedirect: '/',
 		failureRedirect: '/user/login',
 		failureFlash: true
 	})(req, res, next);

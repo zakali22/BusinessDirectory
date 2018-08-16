@@ -1,6 +1,13 @@
 <% include partials/head %>
 	<div class="container">
 		<h1 class="display-4 text-center">Add a business</h1>
+		<% if(errors){ %>
+			<ul style="padding: 0; margin: 0; list-style: none">
+				<% errors.forEach((error) => { %>
+					<li class="alert alert-danger"><%= error.msg %></li>
+				<% }) %>
+			</ul>	
+		<% } %>
 		<form method="post" action="/business/add">
 		  <div class="form-group">
 		    <label for="business">Business Name</label>

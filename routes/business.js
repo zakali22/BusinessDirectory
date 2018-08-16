@@ -6,6 +6,21 @@ const LocalStrategy = require('passport-local').Strategy;
 Business = require('../models/business.js');
 Category = require('../models/category.js');
 User = require('../models/user.js');
+
+
+const NodeGeocoder = require('node-geocoder');
+
+
+// Geocoding Middleware
+const options = {
+	provider: 'google',
+	httpAdapter: 'https',
+	apiKey: 'AIzaSyCh2nrSJxlepFn_9h4OuxqQPrq8yog3wU8',
+	formatter: null
+};
+
+const geocoder = NodeGeocoder(options);
+
 // Access control
 const ensureAuthenticated = (req, res, next) => {
 	if(req.isAuthenticated()){
@@ -73,7 +88,8 @@ router.get('/add', (req, res, next) => {
 		}
 		res.render('addBusiness', {
 			title: 'Add a business',
-			categories: categories
+			categories: categories,
+			errors: null
 		});
 	});
 });
@@ -91,15 +107,40 @@ router.post('/add', (req, res, next) => {
 			street: req.body.street,
 			city: req.body.city,
 			postcode: req.body.postcode
-		},
+		}
 	});
 
-	Business.addBusiness(newBusiness, (err, business) => {
-		if(err){
-			console.log(err);
-		}
-		res.redirect('/business');
-	});
+	req.checkBody('businessName', 'Business name is required').notEmpty();
+	req.checkBody('ownerName', 'Owner name is required').notEmpty();
+	req.checkBody('category', 'Category is required').notEmpty();
+	req.checkBody('phone', 'Phone is required').notEmpty();
+	req.checkBody('description', 'Description is required').notEmpty();
+	req.checkBody('street', 'Street is required').notEmpty();
+	req.checkBody('city', 'City is required').notEmpty();
+	req.checkBody('postcode', 'Post code is required').notEmpty();
+
+
+	let errors = req.validationErrors();
+	if(errors){
+		Category.findCategories((err, categories) => {
+			if(err){
+				console.log(err);
+			}
+			res.render('addBusiness', {
+				title: 'Add a business',
+				categories: categories,
+				errors: errors
+			});
+		});
+	} else {
+		const location = newBusiness.address.street + ' ' + newBusiness.address.city + ' ' + newBusiness.address.postcode; 
+		Business.addBusiness(newBusiness, (err, business) => {
+			if(err){
+				console.log(err);
+			}
+			res.redirect('/business');
+		});
+	}
 });
 
 
@@ -142,11 +183,15 @@ router.post('/write_review/submit/:id', ensureAuthenticated, (req, res, next) =>
 		comment_stars: req.body.stars
 	};
 	Business.updateBusiness(queryId, {$push: {comments: comment}}, (err, comment) => {
-		User.updateUser(req.user.username, {$push: {comments: comment}}, (err, user) => {
+		User.updateUser(req.user.username, {$push: {comments:{
+			comment_author: req.user.username, 
+			comment_title: req.body.title,
+			comment_body: req.body.body,
+			comment_stars: req.body.stars
+		}}}, (err, user) => {
 			if(err){
 				console.log(err);
 			}
-			console.log(user);
 			res.redirect('/business');
 		});
 	})

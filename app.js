@@ -8,6 +8,8 @@ const expressValidator = require('express-validator');
 const session = require('express-session');
 const mongoose = require('mongoose');
 const passport = require('passport');
+const NodeGeocoder = require('node-geocoder');
+
 
 var indexRouter = require('./routes/index');
 var businessRouter = require('./routes/business');
