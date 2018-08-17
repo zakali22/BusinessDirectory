@@ -2,6 +2,8 @@ body {
 	font-family: 'Montserrat', sans-serif;
 }
 
+#map { height: 180px; }
+
 .homepageBody {
 	background-color: #fcd833;
 	height: 100vh;
