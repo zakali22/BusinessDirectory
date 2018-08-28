@@ -133,7 +133,8 @@ router.post('/add', (req, res, next) => {
 			res.render('addBusiness', {
 				title: 'Add a business',
 				categories: categories,
-				errors: errors
+				errors: errors,
+				isAuthenticated: req.isAuthenticated()
 			});
 		});
 	} else {
