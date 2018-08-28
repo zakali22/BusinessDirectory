@@ -22,7 +22,7 @@ const authRouter = require('./routes/auth');
 var app = express();
 
 //Connect to Mongoose
-var url = 'mongodb://zakali21:London54321@ds135952.mlab.com:35952/businessdir';
+var url = process.env.MONGO_URI;
 mongoose.connect(url, {useNewUrlParser: true});
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
