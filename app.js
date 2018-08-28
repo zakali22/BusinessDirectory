@@ -11,15 +11,19 @@ const passport = require('passport');
 const NodeGeocoder = require('node-geocoder');
 
 
+const passportSetup = require('./config/passport-setup.js');
+
 var indexRouter = require('./routes/index');
 var businessRouter = require('./routes/business');
 const categoriesRouter = require('./routes/categories');
 const userRouter = require('./routes/user');
+const authRouter = require('./routes/auth');
 
 var app = express();
 
 //Connect to Mongoose
-mongoose.connect('mongodb://localhost:27017/businessApp', {useNewUrlParser: true});
+var url = 'mongodb://zakali21:London54321@ds135952.mlab.com:35952/businessdir';
+mongoose.connect(url, {useNewUrlParser: true});
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
@@ -85,6 +89,7 @@ app.use('/', indexRouter);
 app.use('/business', businessRouter);
 app.use('/categories', categoriesRouter);
 app.use('/user', userRouter);
+app.use('/auth', authRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
