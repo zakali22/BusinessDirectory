@@ -56,7 +56,8 @@ router.post('/add', (req, res, next) => {
 	if(errors){
 		res.render('addProfile', {
 			title: 'Register',
-			errors: errors
+			errors: errors,
+			isAuthenticated: req.isAuthenticated()
 		})
 	} else {
 		const user = new User({
